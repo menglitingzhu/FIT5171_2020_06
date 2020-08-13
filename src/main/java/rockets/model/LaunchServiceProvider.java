@@ -2,8 +2,11 @@ package rockets.model;
 
 import com.google.common.collect.Sets;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import static org.apache.commons.lang3.Validate.*;
 
 public class LaunchServiceProvider extends Entity {
     private String name;
@@ -16,13 +19,22 @@ public class LaunchServiceProvider extends Entity {
 
     private Set<Rocket> rockets;
 
+    private Map<String, Rocket> rocketmap;
+
+    private String revenue;
+
+    private double ratio;
+
     public LaunchServiceProvider(String name, int yearFounded, String country) {
         this.name = name;
         this.yearFounded = yearFounded;
         this.country = country;
 
         rockets = Sets.newLinkedHashSet();
+        rocketmap = new HashMap<String, Rocket>();
     }
+
+    public Map<String, Rocket> getRocketGroup(){ return rocketmap;}
 
     public String getName() {
         return name;
@@ -45,12 +57,36 @@ public class LaunchServiceProvider extends Entity {
     }
 
     public void setHeadquarters(String headquarters) {
+        notNull(headquarters,"headquarters cannot be null or empty");
         this.headquarters = headquarters;
     }
 
     public void setRockets(Set<Rocket> rockets) {
+        notNull(rockets,"Rockets cannot be null or empty");
         this.rockets = rockets;
     }
+
+    public void addRocketToGroup(Rocket rocket){
+        rocketmap.put(rocket.getFamily(), rocket);
+    }
+
+    public double getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(double ratio) {
+        this.ratio = ratio;
+    }
+
+    public String getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(String revenue) {
+        notNull(revenue, "Revenue cannot be null or empty");
+        this.revenue = revenue;
+    }
+
 
     @Override
     public boolean equals(Object o) {
