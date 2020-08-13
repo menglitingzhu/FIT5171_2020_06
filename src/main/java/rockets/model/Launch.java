@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
+import static org.apache.commons.lang3.Validate.*;
+
 public class Launch extends Entity {
     public enum LaunchOutcome {
         FAILED, SUCCESSFUL
@@ -33,6 +35,7 @@ public class Launch extends Entity {
     }
 
     public void setLaunchDate(LocalDate launchDate) {
+        notNull(launchDate,"LaunchDate cannot be null or empty");
         this.launchDate = launchDate;
     }
 
@@ -41,6 +44,7 @@ public class Launch extends Entity {
     }
 
     public void setLaunchVehicle(Rocket launchVehicle) {
+        notNull(launchVehicle,"LaunchVehicle cannot be null or empty");
         this.launchVehicle = launchVehicle;
     }
 
@@ -49,6 +53,7 @@ public class Launch extends Entity {
     }
 
     public void setLaunchServiceProvider(LaunchServiceProvider launchServiceProvider) {
+        notNull(launchServiceProvider,"LaunchServiceProvider cannot be null or empty");
         this.launchServiceProvider = launchServiceProvider;
     }
 
@@ -57,6 +62,7 @@ public class Launch extends Entity {
     }
 
     public void setPayload(Set<String> payload) {
+        notNull(payload,"Payload cannot be null or empty");
         this.payload = payload;
     }
 
@@ -65,6 +71,7 @@ public class Launch extends Entity {
     }
 
     public void setLaunchSite(String launchSite) {
+        notNull(launchSite,"LaunchSite cannot be null or empty");
         this.launchSite = launchSite;
     }
 
@@ -73,6 +80,7 @@ public class Launch extends Entity {
     }
 
     public void setOrbit(String orbit) {
+        notNull(orbit,"Orbit cannot be null or empty");
         this.orbit = orbit;
     }
 
@@ -81,6 +89,7 @@ public class Launch extends Entity {
     }
 
     public void setFunction(String function) {
+        notNull(function,"Function cannot be null or empty");
         this.function = function;
     }
 
@@ -89,6 +98,7 @@ public class Launch extends Entity {
     }
 
     public void setPrice(BigDecimal price) {
+        notNull(price,"Price cannot be null or empty");
         this.price = price;
     }
 
@@ -97,6 +107,7 @@ public class Launch extends Entity {
     }
 
     public void setLaunchOutcome(LaunchOutcome launchOutcome) {
+        notNull(launchOutcome,"LaunchOutcome cannot be null or empty");
         this.launchOutcome = launchOutcome;
     }
 
