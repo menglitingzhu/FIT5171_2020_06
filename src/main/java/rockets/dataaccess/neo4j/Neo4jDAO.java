@@ -12,8 +12,11 @@ import rockets.model.LaunchServiceProvider;
 import rockets.model.Rocket;
 import rockets.model.User;
 
+
 import java.util.Collection;
 
+import static org.apache.commons.lang3.Validate.notNull;
+import static org.apache.commons.lang3.Validate.isTrue;
 import static org.neo4j.ogm.cypher.ComparisonOperator.EQUALS;
 
 public class Neo4jDAO implements DAO {
@@ -84,6 +87,10 @@ public class Neo4jDAO implements DAO {
 
     // TODO: need to be tested!
     public <T extends Entity> void delete(T entity) {
+
+        notNull(entity, "entity cannot be null.");
+        isTrue(null != findExistingEntity(entity, entity.getClass()), "Cannot find the entity.");
+
         session.delete(entity);
     }
 }
