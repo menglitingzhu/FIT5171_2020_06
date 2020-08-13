@@ -209,7 +209,54 @@ public class Neo4jDAOUnitTest {
         assertEquals("Cannot find the entity.", exception.getMessage());
     }
 
+    @DisplayName("should not throw exception when the User entity can be found")
+    @Test
+    public void shouldNotThrowExceptionWhenTheUserEntityCanBeFound() {
+        User entity = new User();
+        entity.setFirstName("test");
+        entity.setLastName("test");
+        entity.setEmail("test@test.com");
+        entity.setPassword("TESTtest1");
+        dao.createOrUpdate(entity);
 
+        assertNotNull(entity.getId());
+        assertFalse(dao.loadAll(User.class).isEmpty());
+        assertDoesNotThrow(() -> {
+            dao.delete(entity);
+        });
+        assertTrue(dao.loadAll(User.class).isEmpty());
+    }
+
+    @DisplayName("should not throw exception when the Rocket entity can be found")
+    @Test
+    public void shouldNotThrowExceptionWhenTheRocketEntityCanBeFound() {
+        LaunchServiceProvider lspTest = new LaunchServiceProvider("HeHe", 1949, "China");
+        Rocket entity = new Rocket("HeHe X", "China", lspTest);
+
+        dao.createOrUpdate(entity);
+
+        assertNotNull(entity.getId());
+        assertFalse(dao.loadAll(Rocket.class).isEmpty());
+        assertDoesNotThrow(() -> {
+            dao.delete(entity);
+        });
+        assertTrue(dao.loadAll(Rocket.class).isEmpty());
+    }
+
+    @DisplayName("should not throw exception when the Launch service provider entity can be found")
+    @Test
+    public void shouldNotThrowExceptionWhenTheLaunchServiceProviderEntityCanBeFound() {
+
+        LaunchServiceProvider entity = new LaunchServiceProvider("HeHe", 1949, "China");
+        dao.createOrUpdate(entity);
+
+        assertNotNull(entity.getId());
+        assertFalse(dao.loadAll(LaunchServiceProvider.class).isEmpty());
+        assertDoesNotThrow(() -> {
+            dao.delete(entity);
+        });
+        assertTrue(dao.loadAll(LaunchServiceProvider.class).isEmpty());
+    }
 
 
     @AfterEach
