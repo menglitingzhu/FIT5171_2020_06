@@ -3,6 +3,7 @@ package rockets.model;
 import java.util.Objects;
 
 import static org.apache.commons.lang3.Validate.notBlank;
+import static org.apache.commons.lang3.Validate.*;
 
 public class User extends Entity {
     private String firstName;
@@ -43,6 +44,7 @@ public class User extends Entity {
     }
 
     public void setPassword(String password) {
+        notNull(password,"password cannot be null or empty");
         this.password = password;
     }
 
