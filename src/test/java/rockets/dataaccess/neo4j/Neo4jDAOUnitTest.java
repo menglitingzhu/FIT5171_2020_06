@@ -20,6 +20,15 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
+
+import java.util.Arrays;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+import static rockets.model.Launch.LaunchOutcome.SUCCESSFUL;
+import static rockets.model.Launch.LaunchOutcome.FAILED;
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class Neo4jDAOUnitTest {
     private DAO dao;
@@ -29,6 +38,8 @@ public class Neo4jDAOUnitTest {
     private LaunchServiceProvider esa;
     private LaunchServiceProvider spacex;
     private Rocket rocket;
+    private List<LaunchServiceProvider> lsps;
+    private List<Rocket> rockets;
 
     @BeforeAll
     public void initializeNeo4j() {
@@ -166,6 +177,40 @@ public class Neo4jDAOUnitTest {
         assertTrue(dao.loadAll(Rocket.class).isEmpty());
         assertFalse(dao.loadAll(LaunchServiceProvider.class).isEmpty());
     }
+    @Test
+    public void shouldDeleteLaunchServerProviderDirectly()  // delete the provider directly.
+    {
+        dao.createOrUpdate(spacex);
+        assertNotNull(spacex.getName());
+        assertNotNull(spacex.getYearFounded());
+        assertNotNull(spacex.getCountry());
+        dao.delete(spacex);
+    }
+
+
+
+    @DisplayName("should throw exception when pass a null to delete function")
+    @Test
+    public void shouldThrowExceptionWhenDeleteANullEntity(){
+
+        NullPointerException exception = assertThrows(NullPointerException.class, () -> dao.delete(null));
+        assertEquals("entity cannot be null.", exception.getMessage());
+    }
+
+    @DisplayName("should throw exception when the entity cannot be found")
+    @Test
+    public void shouldThrowExceptionWhenTheEntityCannotBeFound() {
+        User entity = new User();
+        entity.setFirstName("test");
+        entity.setLastName("test");
+        entity.setEmail("test@test.com");
+        entity.setPassword("TESTtest1");
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> dao.delete(entity));
+        assertEquals("Cannot find the entity.", exception.getMessage());
+    }
+
+
+
 
     @AfterEach
     public void tearDown() {
