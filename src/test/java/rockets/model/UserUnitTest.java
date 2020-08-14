@@ -49,7 +49,7 @@ public class UserUnitTest {
         assertTrue(target.equals(anotherUser));
     }
 
-
+    //
     @DisplayName("should return false when two users have different emails")
     @Test
     public void shouldReturnFalseWhenUsersHaveDifferentEmails() {
