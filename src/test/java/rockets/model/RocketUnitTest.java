@@ -49,7 +49,7 @@ public class RocketUnitTest {
         bfr.setMassToLEO(massToLEO);
         assertEquals(massToLEO, bfr.getMassToLEO());
     }
-    //
+    
 
     @DisplayName("should throw exception when set massToLEO to null")
     @Test
